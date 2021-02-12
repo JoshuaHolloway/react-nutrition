@@ -3,7 +3,6 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import BasicTable from './BasicTable';
 
-
 function App() {
   return (
     <div className="App">

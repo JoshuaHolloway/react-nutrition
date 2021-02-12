@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import Input from './Input';
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -30,6 +32,7 @@ export default function BasicTable() {
   const classes = useStyles();
 
   return (
+
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -48,6 +51,8 @@ export default function BasicTable() {
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right"><Input></Input></TableCell>
+              
               <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">{row.carbs}</TableCell>
               <TableCell align="right">{row.protein}</TableCell>
