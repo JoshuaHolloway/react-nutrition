@@ -33,10 +33,10 @@ STEP 6:
 
 import React, {useState} from 'react';
 
-export default function Input() {
+export default function Input({inputVal, setInputVal}) {
 
   /* STEP 1 */
-  const [inputVal, setInputVal] = useState('');
+  // const [inputVal, setInputVal] = useState('');
 
   const changeInput = evt => {
     // When the input changes, its whole value can be found inside the event object.

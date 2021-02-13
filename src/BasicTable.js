@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,6 +31,8 @@ const rows = [
 export default function BasicTable() {
   const classes = useStyles();
 
+  const [inputVal, setInputVal] = useState('');
+
   return (
 
     <TableContainer component={Paper}>
@@ -42,6 +44,7 @@ export default function BasicTable() {
             <TableCell align="right">Fat&nbsp;(g)</TableCell>
             <TableCell align="right">Carbs&nbsp;(g)</TableCell>
             <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="right">Input Val</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,11 +54,11 @@ export default function BasicTable() {
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right"><Input></Input></TableCell>
+              <TableCell align="right"><Input inputVal={inputVal} setInputVal={setInputVal}></Input></TableCell>
               
               <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{inputVal}</TableCell>
             </TableRow>
           ))}
         </TableBody>
