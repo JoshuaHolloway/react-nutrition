@@ -9,6 +9,9 @@ export default function Input({inputVal, setInputVal}) {
     
     /* STEP 4 */
     setInputVal(value);
+
+    // TODO: Update the cals per row:
+    // update_nutrients_in_row();
   };
   const reset = () => {
     // Set the input value in state to be empty string. The reset still won't work, though! See the next step.
@@ -28,7 +31,7 @@ export default function Input({inputVal, setInputVal}) {
         { /* For the input to reset correctly, it needs to "drink" its value from state! */ }
         { /* We need to add an extra prop to the <input /> element like so: value={inputValue} */ }
         <input id='input' type='text' onChange={changeInput} value={inputVal} />
-        <button id='resetInput' onClick={reset} style={style}>Reset</button>
+        {/* <button id='resetInput' onClick={reset} style={style}>Reset</button> */}
       </div>
     </div>
   );

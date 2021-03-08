@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import Input from './Input';
+import SimpleSelect from './Select';
 
 import Button from '@material-ui/core/Button';
 
@@ -27,24 +28,53 @@ const rows = [
   createData('food-1', 6.0, 24, 4.0),
 ];
 
+// Easy iteration via array
+const known_foods = ['apple', 'orange'];
+
+// Easy key-value lookup via map:
+
+// Map to store the nutrition facts for the key of name of food from known_foods
+const nut_facts_map = new Map();
+nut_facts_map.set(known_foods[0], { // apple
+  protein: 0.3,
+  carbs: 13.8,
+  fat: 0.2,
+});
+nut_facts_map.set(known_foods[1], { // orange
+  protein: 0.9,
+  carbs: 11,
+  fat: 0.1,
+});
+
 export default function BasicTable() {
   const classes = useStyles();
 
   const [inputVal, setInputVal] = useState('');
   const [numFoods, setNumFoods] = useState(1);
+  const [isInChooseFoodState, setIsInChooseFoodState] = useState(false);
 
   const setNumFoods_callback = (evt) => {
 
-    let num_foods = numFoods;
-    num_foods++;
-    rows.push(createData('food-2', 1, 2, 3));
+    // TODO: Grab the data for this food from the database:
+    const protein_per_serving = 1;
+    const fat_per_serving = 1;
+    const carbs_per_serving = 1;
+
+    const protein = inputVal * protein_per_serving;
+    const fat = inputVal * fat_per_serving;
+    const carbs = inputVal * carbs_per_serving;
+    rows.push(createData('food-2', fat, carbs, protein));
     
-    setNumFoods(num_foods);
+    setNumFoods(numFoods + 1);
+
+    setIsInChooseFoodState(true);
   };
 
 
   return (
     <>
+      
+
       <Button variant="contained" color="primary" onClick={setNumFoods_callback}>Add food</Button>
 
       <TableContainer component={Paper}>
@@ -52,21 +82,23 @@ export default function BasicTable() {
           <TableHead>
             <TableRow>
               <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
+              <TableCell align="right">Servings</TableCell>
               <TableCell align="right">Fat&nbsp;(g)</TableCell>
               <TableCell align="right">Carbs&nbsp;(g)</TableCell>
               <TableCell align="right">Protein&nbsp;(g)</TableCell>
-              <TableCell align="right">Input Val</TableCell>
+              <TableCell align="right">Cals</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, idx) => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+
+                  {isInChooseFoodState && idx===numFoods-1 ? <SimpleSelect known_foods={known_foods} nut_facts_map={nut_facts_map} setIsInChooseFoodState={setIsInChooseFoodState}></SimpleSelect> : `${known_foods[idx]}, row-num: ${numFoods}`}
+
                 </TableCell>
-                <TableCell align="right">{row.cals}</TableCell>
                 <TableCell align="right"><Input inputVal={inputVal} setInputVal={setInputVal}></Input></TableCell>
+                <TableCell align="right">{row.cals}</TableCell>
                 
                 <TableCell align="right">{row.fat}</TableCell>
                 <TableCell align="right">{row.carbs}</TableCell>
