@@ -19,13 +19,13 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, fat, carbs, protein) {
+function createData(name, fat, carbs, protein, row_num) {
   const cals = fat * 9 + 4 * (carbs + protein);
-  return { name, cals, fat, carbs, protein };
+  return { name, cals, fat, carbs, protein, row_num };
 }
 
-const rows = [
-  createData('food-1', 6.0, 24, 4.0),
+const foods_in_table = [
+  // createData('food-1', 6.0, 24, 4.0),
 ];
 
 // Easy iteration via array
@@ -63,9 +63,9 @@ export default function BasicTable() {
     const protein = inputVal * protein_per_serving;
     const fat = inputVal * fat_per_serving;
     const carbs = inputVal * carbs_per_serving;
-    rows.push(createData('food-2', fat, carbs, protein));
+    foods_in_table.push(createData(`food-${numFoods}`, fat, carbs, protein, numFoods));
     
-    setNumFoods(numFoods + 1);
+    
 
     setIsInChooseFoodState(true);
   };
@@ -90,18 +90,20 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, idx) => (
-              <TableRow key={row.name}>
+            {foods_in_table.map((food_in_table, idx) => (
+              <TableRow key={food_in_table.name}>
                 <TableCell component="th" scope="row">
 
-                  {isInChooseFoodState && idx===numFoods-1 ? <SimpleSelect known_foods={known_foods} nut_facts_map={nut_facts_map} setIsInChooseFoodState={setIsInChooseFoodState}></SimpleSelect> : `${known_foods[idx]}, row-num: ${numFoods}`}
+                  {isInChooseFoodState && idx===numFoods-1 
+                    ? <SimpleSelect known_foods={known_foods} nut_facts_map={nut_facts_map} setIsInChooseFoodState={setIsInChooseFoodState} setNumFoods={setNumFoods} numFoods={numFoods}></SimpleSelect> 
+                    : `${food_in_table.name}, row-num: ${foods_in_table[idx].row_num}, idx=${idx}, numFoods=${numFoods}`}
 
                 </TableCell>
                 <TableCell align="right"><Input inputVal={inputVal} setInputVal={setInputVal}></Input></TableCell>
-                <TableCell align="right">{row.cals}</TableCell>
+                <TableCell align="right">{food_in_table.cals}</TableCell>
                 
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell align="right">{food_in_table.fat}</TableCell>
+                <TableCell align="right">{food_in_table.carbs}</TableCell>
                 <TableCell align="right">{inputVal}</TableCell>
               </TableRow>
             ))}

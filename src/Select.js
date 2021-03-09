@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleSelect({known_foods, nut_facts_map, setIsInChooseFoodState}) {
+export default function SimpleSelect({known_foods, nut_facts_map, setIsInChooseFoodState, setNumFoods, numFoods}) {
   const classes = useStyles();
   const [age, setAge] = React.useState('');
 
@@ -55,6 +55,9 @@ export default function SimpleSelect({known_foods, nut_facts_map, setIsInChooseF
 
     // Stop displaying drop-down
     setIsInChooseFoodState(false);
+
+    // Increase number of foods in table
+    setNumFoods(numFoods + 1);
   };
 
   return (
