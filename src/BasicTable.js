@@ -73,7 +73,6 @@ export default function BasicTable() {
 
   return (
     <>
-      
 
       <Button variant="contained" color="primary" onClick={setNumFoods_callback}>Add food</Button>
 
